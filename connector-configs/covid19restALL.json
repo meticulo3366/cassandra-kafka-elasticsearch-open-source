@@ -1,0 +1,17 @@
+{
+  "name": "source_rest_covid19",
+  "config": {
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "connector.class": "com.tm.kafka.connect.rest.RestSourceConnector",
+    "tasks.max": "1",
+    "rest.source.poll.interval.ms": "9000",
+    "max.request.size":"10000000",
+    "producer.max.request.size":"16777216",
+    "rest.source.method": "GET",
+    "rest.source.url": "https://pomber.github.io/covid19/timeseries.json",
+    "rest.source.headers": "Content-Type:application/json,Accept:application/json",
+    "rest.source.topic.selector": "com.tm.kafka.connect.rest.selector.SimpleTopicSelector",
+    "rest.source.destination.topics": "covid19"
+  }
+}

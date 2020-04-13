@@ -1,0 +1,23 @@
+{
+	"name": "covid19USAelk",
+	"config":{
+		"connector.class":"com.datamountaineer.streamreactor.connect.elastic6.ElasticSinkConnector",
+		"tasks.max":"1",
+		"connect.elastic.batch.size":"1",
+		"topics":"covid19USA",
+		"errors.log.enable":"true",
+		"errors.log.include.messages":"true",
+		"max.request.size":"10000000",
+    	"producer.max.request.size":"16777216",
+    	"consumer.max.fetch.bytes":"16777216",
+    	"fetch.message.max.bytes": "41943040",
+		"message.max.bytes":"41943040",
+		"max.request.size":"41943040",
+		"replica.fetch.max.bytes":"41943040",
+		"fetch.message.max.bytes":"41943040",
+		"connect.elastic.url":"elasticsearch:9200",
+		"connect.elastic.use.http":"http",
+		"connect.elastic.kcql":"INSERT INTO covid19USA SELECT casesByDays FROM covid19USA",
+		"connect.progress.enabled":"true"
+	}
+}
