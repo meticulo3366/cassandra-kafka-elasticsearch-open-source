@@ -10,6 +10,18 @@ services:
   #   volumes:
   #     - ./gs-rest-service/target:/app
 
+  cassandra:
+    image: cassandra:3.0.20
+    volumes:
+      - "./cassandra-init.sh:/cassandra-init.sh"
+    command: "sh /cassandra-init.sh"
+    ports:
+      - "9042:9042"
+    links:
+      - connect
+    # healthcheck:
+    #   test: ["CMD-SHELL", "[ $$(nodetool statusgossip) = running ]"]
+
   elasticsearch:
     hostname: elasticsearch
     image: nshou/elasticsearch-kibana
@@ -18,7 +30,7 @@ services:
       - kafka
       - connect
     ports:
-      - "9092:9092"
+      - "9200:9200"
       - "5601:5601"
     links:
       - connect

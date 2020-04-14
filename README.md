@@ -15,6 +15,7 @@ We needed a data pipeline to demonstrate the functionality of cassandra / kafka 
 	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-transform-from-json-plugin-1.0.3-shaded.jar
 	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-transform-velocity-eval-1.0.3-shaded.jar
 	wget https://github.com/lensesio/stream-reactor/releases/download/1.2.3/kafka-connect-elastic6-1.2.3-2.1.0-all.tar.gz
+	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-cassandra-1.2.3-2.1.0-all.jar
 	```
 
 ## Deploy the docker environment
@@ -23,9 +24,23 @@ We needed a data pipeline to demonstrate the functionality of cassandra / kafka 
 ## Enable the connectors
 1. `curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/current-datetime.json`
 2. `curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/utcelk.json`
+3. `curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/utccassandra.json`
 
 verify the rest connector is ingesting data 
 `docker exec -it spring_connect_1 bash -c   "kafka-console-consumer --bootstrap-server kafka:9092   --topic current-datetime --from-beginning"`
+
+#### Validate Cassandra has ingested the data
+* input
+`docker exec -it cassandra-kafka-elasticsearch-open-source_cassandra_1 bash`
+`select * from test.clock;`
+* validate
+
+ currentfiletime    | currentdatetime   | dayoftheweek
+--------------------+-------------------+--------------
+ 132312998369757549 | 2020-04-14T01:03Z |      Tuesday
+ 132312999571657054 | 2020-04-14T01:05Z |      Tuesday
+ 132312998970689266 | 2020-04-14T01:04Z |      Tuesday
+
 
 ## Understanding Data Flows - Time Clock syncing
 #### Kafka REST Connector
@@ -69,3 +84,5 @@ look at the configuration for the rest connector
 	}
 }
 ```
+
+#### Kafka Cassandra Connector

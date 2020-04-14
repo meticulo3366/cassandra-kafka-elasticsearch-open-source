@@ -1,0 +1,13 @@
+{
+  "name": "utccassandra",
+  "config": {
+    "tasks.max": "1",
+    "connector.class": "com.datamountaineer.streamreactor.connect.cassandra.sink.CassandraSinkConnector",
+    "connect.cassandra.contact.points":"cassandra",
+    "connect.cassandra.port":"9042",
+    "connect.cassandra.consistency.level": "LOCAL_ONE",
+    "connect.cassandra.key.space": "test",
+    "connect.cassandra.kcql": "INSERT INTO clock SELECT dayOfTheWeek,currentDateTime,currentFileTime FROM current-datetime",
+    "topics": "current-datetime"
+  }
+}
