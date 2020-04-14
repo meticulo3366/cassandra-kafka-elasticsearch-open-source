@@ -16,10 +16,12 @@ We needed a data pipeline to demonstrate the functionality of cassandra / kafka 
 	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-transform-velocity-eval-1.0.3-shaded.jar
 	wget https://github.com/lensesio/stream-reactor/releases/download/1.2.3/kafka-connect-elastic6-1.2.3-2.1.0-all.tar.gz
 	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-cassandra-1.2.3-2.1.0-all.jar
+	cd ..
 	```
 
 ## Deploy the docker environment
 
+1. docker-compose up
 
 ## Enable the connectors
 1. `curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/current-datetime.json`
@@ -98,10 +100,10 @@ look at the configuration for the elk connector
 ```
 
 #### Kafka Cassandra Connector
-look at the configuration for the cassandra connector
+* look at the configuration for the cassandra connector
 [link to connector source code](https://github.com/lensesio/stream-reactor/tree/master/kafka-connect-cassandra)
 
-```
+    ```
 {
   "name": "utccassandra",
   "config": {
@@ -117,6 +119,55 @@ look at the configuration for the cassandra connector
 }
 ```
 
+* look at the boot up process for cassandra
+
+    ```
+cat >/import.cql <<EOF
+DROP keyspace test;
+CREATE keyspace test with replication = {'class':'SimpleStrategy', 'replication_factor' : 1} AND durable_writes = true;
+CREATE TABLE test.clock ( 
+	dayOfTheWeek text,
+	currentDateTime text,
+	currentFileTime timestamp,
+	PRIMARY KEY (currentFileTime)
+);
+EOF
+```
+
+* look at docker compose 
+    
+    ```
+      cassandra:
+    image: cassandra:3.0.20
+    volumes:
+      - "./cassandra-init.sh:/cassandra-init.sh"
+    command: "sh /cassandra-init.sh"
+    ports:
+      - "9042:9042"
+    links:
+      - connect
+    ```
+
+# You may add some other conditionals that fits your stuation here
+until cqlsh -f /import.cql; do
+  echo "cqlsh: Cassandra is unavailable to initialize - will retry later"
+  sleep 2
+done &
+
+exec /docker-entrypoint.sh "$@"
+```
+  * docker-compose program entry
+```
+  cassandra:
+    image: cassandra:3.0.20
+    volumes:
+      - "./cassandra-init.sh:/cassandra-init.sh"
+    command: "sh /cassandra-init.sh"
+    ports:
+      - "9042:9042"
+    links:
+      - connect
+```
 ## Do some data exploration with kibana
 1. [Navigate to Kibana](http://localhost:5601/app/kibana#/management/kibana/index_pattern?_g=())
 
