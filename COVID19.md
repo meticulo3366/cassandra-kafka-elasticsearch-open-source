@@ -13,7 +13,7 @@ curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json
 
 #### Stock Trading Volatility VIX Data
 ```
-curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/vix.json
+curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/vixrest.json
 ```
 
 #### Run the python data cleaner
