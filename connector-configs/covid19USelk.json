@@ -1,12 +1,12 @@
 {
-	"name": "elk",
+	"name": "covid19USelk",
 	"config":{
 		"connector.class":"com.datamountaineer.streamreactor.connect.elastic6.ElasticSinkConnector",
 		"tasks.max":"1",
-		"topics":"bacon",
+		"topics":"covid19US",
 		"connect.elastic.url":"elasticsearch:9200",
 		"connect.elastic.use.http":"http",
-		"connect.elastic.kcql":"INSERT INTO index_1 SELECT * FROM bacon",
+		"connect.elastic.kcql":"INSERT INTO covid19us SELECT date,confirmed,deaths,recovered FROM covid19US WITHFORMAT JSON",
 		"connect.progress.enabled":"true"
 	}
 }

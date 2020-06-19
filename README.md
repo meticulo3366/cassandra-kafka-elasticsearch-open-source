@@ -9,27 +9,32 @@ We needed a data pipeline to demonstrate the functionality of cassandra / kafka 
 * Download the kafka connectors 
 
 	```
+	mkdir jars
 	cd jars/
 	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-rest-plugin-1.0.3-shaded.jar
 	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-transform-add-headers-1.0.3-shaded.jar
 	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-transform-from-json-plugin-1.0.3-shaded.jar
 	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-transform-velocity-eval-1.0.3-shaded.jar
-	wget https://github.com/lensesio/stream-reactor/releases/download/1.2.3/kafka-connect-elastic6-1.2.3-2.1.0-all.tar.gz
+	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-elastic6-1.2.3-2.1.0-all.jar
 	wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-cassandra-1.2.3-2.1.0-all.jar
 	cd ..
 	```
 
 ## Deploy the docker environment
 
-1. docker-compose up
+1. docker-compose up --force-recreate -V
 
 ## Enable the connectors
-1. `curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/current-datetime.json`
-2. `curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/utcelk.json`
-3. `curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/utccassandra.json`
+```
+curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/current-datetime.json
+curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/utcelk.json
+curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/utccassandra.json
+```
 
 verify the rest connector is ingesting data 
-`docker exec -it spring_connect_1 bash -c   "kafka-console-consumer --bootstrap-server kafka:9092   --topic current-datetime --from-beginning"`
+```
+docker exec -it cassandra-kafka-elasticsearch-open-source_connect_1 bash -c   "kafka-console-consumer --bootstrap-server kafka:9092   --topic current-datetime --from-beginning"
+```
 
 #### Validate elasticsearch has ingested the data
 * input
@@ -42,8 +47,11 @@ verify the rest connector is ingesting data
 `{"took":8,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":29,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-0","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:03Z","currentFileTime":132312998369757549}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-1","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:04Z","currentFileTime":132312998970689266}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-2","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:05Z","currentFileTime":132312999571657054}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-3","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:06Z","currentFileTime":132313000172654285}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-4","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:07Z","currentFileTime":132313000773434479}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-5","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:08Z","currentFileTime":132313001374382632}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-6","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:09Z","currentFileTime":132313001975291264}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-7","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:10Z","currentFileTime":132313002576201685}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-8","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:11Z","currentFileTime":132313003177159014}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-9","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:12Z","currentFileTime":132313003778899192}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-10","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:13Z","currentFileTime":132313004379766982}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-11","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:14Z","currentFileTime":132313004981127254}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-12","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:15Z","currentFileTime":132313005582092368}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-13","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:16Z","currentFileTime":132313006185439058}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-14","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:17Z","currentFileTime":132313006786489144}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-15","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:18Z","currentFileTime":132313007387657248}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-16","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:19Z","currentFileTime":132313007988489710}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-17","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:20Z","currentFileTime":132313008589424111}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-18","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:21Z","currentFileTime":132313009190359663}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-19","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:22Z","currentFileTime":132313009792017971}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-20","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:23Z","currentFileTime":132313010393116357}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-21","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:24Z","currentFileTime":132313010786904293}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-22","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:24Z","currentFileTime":132313010856907901}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-23","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:24Z","currentFileTime":132313010994111901}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-24","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:25Z","currentFileTime":132313011387885900}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-25","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:25Z","currentFileTime":132313011457896107}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-26","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:26Z","currentFileTime":132313012058690674}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-27","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:27Z","currentFileTime":132313012659520109}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-28","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:28Z","currentFileTime":132313013260366976}}]}}`
 #### Validate Cassandra has ingested the data
 * input
-`docker exec -it cassandra-kafka-elasticsearch-open-source_cassandra_1 bash`
-`select * from test.clock;`
+```
+docker exec -it cassandra-kafka-elasticsearch-open-source_cassandra_1 bash
+
+select * from test.clock;
+```
 * validate
 
  currentfiletime    | currentdatetime   | dayoftheweek

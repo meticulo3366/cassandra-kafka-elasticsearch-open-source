@@ -1,12 +1,12 @@
 {
-	"name": "utcelk",
+	"name": "vixelk",
 	"config":{
 		"connector.class":"com.datamountaineer.streamreactor.connect.elastic6.ElasticSinkConnector",
 		"tasks.max":"1",
-		"topics":"current-datetime",
+		"topics":"vixClean",
 		"connect.elastic.url":"elasticsearch:9200",
 		"connect.elastic.use.http":"http",
-		"connect.elastic.kcql":"INSERT INTO current-datetime SELECT dayOfTheWeek,currentDateTime,currentFileTime FROM current-datetime",
+		"connect.elastic.kcql":"INSERT INTO merged SELECT * FROM vixClean WITHFORMAT JSON",
 		"connect.progress.enabled":"true"
 	}
 }

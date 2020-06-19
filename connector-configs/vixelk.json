@@ -1,12 +1,12 @@
 {
-	"name": "elk",
+	"name": "vixelk",
 	"config":{
 		"connector.class":"com.datamountaineer.streamreactor.connect.elastic6.ElasticSinkConnector",
 		"tasks.max":"1",
-		"topics":"bacon",
+		"topics":"vixClean",
 		"connect.elastic.url":"elasticsearch:9200",
 		"connect.elastic.use.http":"http",
-		"connect.elastic.kcql":"INSERT INTO elk SELECT * FROM bacon",
+		"connect.elastic.kcql":"INSERT INTO vix SELECT * FROM vixClean WITHFORMAT JSON",
 		"connect.progress.enabled":"true"
 	}
 }

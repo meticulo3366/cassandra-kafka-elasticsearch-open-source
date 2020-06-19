@@ -1,17 +1,17 @@
 {
-  "name": "source_rest_covid19",
+  "name": "source_rest_vix",
   "config": {
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "org.apache.kafka.connect.storage.StringConverter",
     "connector.class": "com.tm.kafka.connect.rest.RestSourceConnector",
     "tasks.max": "1",
-    "rest.source.poll.interval.ms": "90000",
+    "rest.source.poll.interval.ms": "86400000",
     "max.request.size":"10000000",
     "producer.max.request.size":"16777216",
     "rest.source.method": "GET",
-    "rest.source.url": "https://api.apify.com/v2/key-value-stores/moxA3Q0aZh5LosewB/records/LATEST?disableRedirect=true",
+    "rest.source.url": "https://pkgstore.datahub.io/core/finance-vix/vix-daily_json/data/7669444326ebd2a0946682c16f7dbfdd/vix-daily_json.json",
     "rest.source.headers": "Content-Type:application/json,Accept:application/json",
     "rest.source.topic.selector": "com.tm.kafka.connect.rest.selector.SimpleTopicSelector",
-    "rest.source.destination.topics": "covid19USA"
+    "rest.source.destination.topics": "vix"
   }
 }

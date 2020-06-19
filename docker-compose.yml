@@ -1,26 +1,30 @@
 version: "2"
 services:
 
-  # webservice:
-  #   hostname: webservice
-  #   image: java
-  #   command: java -jar /app/gs-rest-service-0.1.0.jar
-  #   ports:
-  #     - "8080:8080"
-  #   volumes:
-  #     - ./gs-rest-service/target:/app
-
-  cassandra:
-    image: cassandra:3.0.20
-    volumes:
-      - "./cassandra-init.sh:/cassandra-init.sh"
-    command: "sh /cassandra-init.sh"
+  lenses:
+    image: lensesio/lenses
+    environment:
+      LENSES_PORT: 9991
+      LENSES_KAFKA_BROKERS: "PLAINTEXT://kafka:9092"
     ports:
-      - "9042:9042"
-    links:
-      - connect
-    # healthcheck:
-    #   test: ["CMD-SHELL", "[ $$(nodetool statusgossip) = running ]"]
+      - 9991:9991
+      - 9102:9102
+    volumes:
+      - ./license.json:/license.json
+    depends_on:
+      # - webservice
+      - zookeeper
+      - kafka
+
+  # cassandra:
+  #   image: cassandra:3.0.20
+  #   volumes:
+  #     - "./cassandra-init.sh:/cassandra-init.sh"
+  #   command: "sh /cassandra-init.sh"
+  #   ports:
+  #     - "9042:9042"
+  #   links:
+  #     - connect
 
   elasticsearch:
     hostname: elasticsearch
@@ -49,29 +53,27 @@ services:
     links:
       - zookeeper
     ports:
-      - "9092:9092"
+      #- "9092:9093"
+      - "29092:29092"
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092"
+      #KAFKA_ADVERTISED_LISTENERS: "OUTSIDE://localhost:9093,INSIDE://kafka:9092"
+      #KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "OUTSIDE:PLAINTEXT,INSIDE:PLAINTEXT"
+      #KAFKA_INTER_BROKER_LISTEN_NAME: "INSIDE"
+      #KAFKA_INTER_BROKER_LISTENER_NAME: "INSIDE"
+      #KAFKA_ALLOW_PLAINTEXT_LISTENER: "yes"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_LOG4J_ROOT_LOGLEVEL: "WARN"
-      KAFKA_TOOLS_LOG4J_LOGLEVEL=\: "ERROR"
-      KAFKA_PRODUCER_MAX_REQUEST_SIZE: 5048576
-      KAFKA_CONSUMER_MAX_PARTITION_FETCH_BYTES: 5048576
-      KAFKA_CONSUMER_FETCH_MESSAGE_BYTES: 5048576
-      CONNECT_MAX_REQUEST_SIZE: 5048576
+      KAFKA_TOPIC_AUTO_CREATE: 1
+      TOPIC_AUTO_CREATE: 1
+      KAFKA_LOG4J_ROOT_LOGLEVEL: "ERROR"
+      KAFKA_TOOLS_LOG4J_LOGLEVEL: "ERROR"
+      KAFKA_PRODUCER_MAX_REQUEST_SIZE: 15048576
+      KAFKA_CONSUMER_MAX_PARTITION_FETCH_BYTES: 15048576
+      KAFKA_CONSUMER_FETCH_MESSAGE_BYTES: 15048576
+      CONNECT_MAX_REQUEST_SIZE: 15048576
 
-  # schema_registry:
-  #   hostname: schema_registry
-  #   image: confluentinc/cp-schema-registry:5.0.0
-  #   links:
-  #     - kafka
-  #     - zookeeper
-  #   ports:
-  #     - "8081:8081"
-  #   environment:
-  #     SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
-  #     SCHEMA_REGISTRY_HOST_NAME: schema-registry
 
   connect:
     image: confluentinc/cp-kafka-connect:5.0.0
@@ -95,20 +97,26 @@ services:
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
-      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: 'http://schema_registry:8081'
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      #CONNECT_KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+      #CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: 'http://schema_registry:8081'
       #CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      #CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      # CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
-      #CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: 'http://schema_registry:8081'
+      #CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: 'http://schema_registry:8081'
+      # CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      # CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       CONNECT_PRODUCER_COMPRESSION_TYPE: "snappy"
       CONNECT_PLUGIN_PATH: /jars
-      CONNECT_PRODUCER_MAX_REQUEST_SIZE: 5048576
-      CONNECT_CONSUMER_MAX_PARTITION_FETCH_BYTES: 5048576
-      CONNECT_MAX_REQUEST_SIZE: 5048576
+      CONNECT_PRODUCER_MAX_REQUEST_SIZE: 15048576
+      CONNECT_CONSUMER_MAX_PARTITION_FETCH_BYTES: 15048576
+      CONNECT_MAX_REQUEST_SIZE: 15048576
+      # CONNECT_LOG4J_ROOT_LOGLEVEL: "WARN"
+      # CONNECT_TOOLS_LOG4J_LOGLEVEL: "ERROR"
     volumes:
       - ./jars:/jars
       - ./config:/config
