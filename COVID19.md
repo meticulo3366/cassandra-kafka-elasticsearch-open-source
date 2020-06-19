@@ -76,7 +76,7 @@ docker exec -it cassandra-kafka-elasticsearch-open-source_connect_1 bash -c   "k
 curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/vixelk.json
 ```
 
-## Putting it all together in Kibana Query Langauge
+## examine the data in elastic search
 
 
 # Trouble Shooting Connectors
