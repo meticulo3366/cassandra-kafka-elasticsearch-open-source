@@ -15,8 +15,9 @@ for message in consumer:
         if record_date.year == now.year:
             #lets clean up those white spaces as this will cause issues with our queries
             i["vix"] = i.pop("VIX High")
-            i["vix.open"] = i.pop("VIX Open")
-            i["vix.close"] = i.pop("VIX Close")
-            i["vix.low"] = i.pop("VIX Low")
-            producer.send('vixClean', key=i['Date'], value=i ) 
+            i["vix_open"] = i.pop("VIX Open")
+            i["vix_close"] = i.pop("VIX Close")
+            i["vix_low"] = i.pop("VIX Low")
+            i["date"] = i.pop("Date")
+            producer.send('vixClean', key=i['date'], value=i ) 
             print(i)

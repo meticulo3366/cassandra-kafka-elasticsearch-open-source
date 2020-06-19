@@ -1,0 +1,12 @@
+{
+	"name": "streamjoinelk",
+	"config":{
+		"connector.class":"com.datamountaineer.streamreactor.connect.elastic6.ElasticSinkConnector",
+		"tasks.max":"2",
+		"topics":"covid19US,covidvix",
+		"connect.elastic.url":"elasticsearch:9200",
+		"connect.elastic.use.http":"http",
+		"connect.elastic.kcql":"INSERT INTO merged SELECT covid19US.confirmed,covid19US.deaths,covid19US.recovered, covidvix.vix FROM  covid19US JOIN covidvix ON covid19US._key = covidvix._key",
+		"connect.progress.enabled":"true"
+	}
+}
