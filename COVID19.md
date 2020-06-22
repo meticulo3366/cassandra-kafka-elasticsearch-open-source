@@ -22,11 +22,12 @@ curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json
 
 Follow instructions below
 
-1. Set up your python environment (requires python 3)
+1. Set up your python environment (requires python 3) (mac instructions)
 
 ```
 pip3 install kafka-python
 pip3 install snappy
+brew install snappy
 pip3 install python-snappy
 ```
 
