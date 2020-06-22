@@ -1,10 +1,12 @@
-COVID19 Data Sets and Visualization
+# COVID19 Data Sets and Visualization
 
-## Deploy the docker environment
+## Inspiration
+We needed a data pipeline to demonstrate the functionality of  kafka and elasticsearch and proper data science workflows
 
-1. docker-compose up
-
-## Enable the connectors
+## Pre-requisites
+* Set up and install Docker
+* Download the kafka connectors 
+* see [ReadMe](./README.md) if you are facing any challenges
 
 #### COVID19 Data
 ```

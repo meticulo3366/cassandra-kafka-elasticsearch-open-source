@@ -8,14 +8,17 @@ consumer = KafkaConsumer('covid19Global',max_poll_records=1,bootstrap_servers="l
 producer = KafkaProducer(bootstrap_servers="localhost:29092", key_serializer=str.encode,value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 for message in consumer:
     covid = json.loads(message.value)
-    for i in covid["US"]:
+    for key in covid:
+        # print(key)
+        for i in covid[key]:
 
-        # we need to ensure our data format is correct to merge the data streams
-        # i.e. -> “date”:“2020-01-02" != “date”:“2020-1-2",
-        record_date = datetime.datetime.strptime(i['date'], '%Y-%m-%d')
-        record_date = record_date.strftime('%Y-%m-%d')
-        i['date'] = record_date
+            # we need to ensure our data format is correct to merge the data streams
+            # i.e. -> “date”:“2020-01-02" != “date”:“2020-1-2",
+            record_date = datetime.datetime.strptime(i['date'], '%Y-%m-%d')
+            record_date = record_date.strftime('%Y-%m-%d')
+            i['date'] = record_date
+            i['country'] = key
 
-        #we are sending our records to a new topic called covid19US
-        producer.send('covid19US', key=record_date, value=i ) 
-        print(i)
+            #we are sending our records to a new topic called covid19US
+            producer.send('covid19US', key=record_date, value=i ) 
+            print(i)
