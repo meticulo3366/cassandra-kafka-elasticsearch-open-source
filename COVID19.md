@@ -39,12 +39,12 @@ python3 covid19_datacleaner.py
 
 3. Validate that you have cleaned the data successfully
 ```
-docker exec -it cassandra-kafka-elasticsearch-open-source_connect_1 bash -c   "kafka-console-consumer --bootstrap-server kafka:9092   --topic covid19US  --from-beginning"
+docker exec -it cassandra-kafka-elasticsearch-open-source_connect_1 bash -c   "kafka-console-consumer --bootstrap-server kafka:9092   --topic covid19  --from-beginning"
 ```
 
 #### Send the data to elastic search
 ```
-curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/covid19USelk.json
+curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/covid19elk.json
 ```
 
 #### Validate elasticsearch has ingested the data

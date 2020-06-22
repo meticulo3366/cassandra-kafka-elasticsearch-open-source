@@ -1,12 +1,13 @@
 {
-	"name": "utcelk",
+	"name": "covid19elk",
 	"config":{
 		"connector.class":"com.datamountaineer.streamreactor.connect.elastic6.ElasticSinkConnector",
 		"tasks.max":"1",
-		"topics":"current-datetime",
+		"topics":"covid19US",
 		"connect.elastic.url":"elasticsearch:9200",
 		"connect.elastic.use.http":"http",
-		"connect.elastic.kcql":"INSERT INTO current-datetime SELECT dayOfTheWeek,currentDateTime,currentFileTime FROM current-datetime",
+		"connect.elastic.kcql":"INSERT INTO covid19 SELECT date,confirmed,deaths,recovered FROM covid19 WITHFORMAT JSON",
 		"connect.progress.enabled":"true"
 	}
 }
+

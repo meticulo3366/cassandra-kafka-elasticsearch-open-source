@@ -20,5 +20,5 @@ for message in consumer:
             i['country'] = key
 
             #we are sending our records to a new topic called covid19US
-            producer.send('covid19US', key=record_date, value=i ) 
+            producer.send('covid19', key=record_date, value=i ) 
             print(i)
