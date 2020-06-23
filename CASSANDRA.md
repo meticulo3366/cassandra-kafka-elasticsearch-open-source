@@ -10,6 +10,8 @@ We needed a data pipeline to demonstrate the functionality of cassandra / kafka 
 * Download the kafka connectors 
 * see [ReadMe](./README.md) if you are facing any challenges
 
+**Uncomment Lines 4 through 11 in Docker Compose**
+
 ## Open another terminal and Enable the connectors 
 ```
 curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json'   http://localhost:8083/connectors -d @connector-configs/current-datetime.json

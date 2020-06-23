@@ -22,7 +22,7 @@ curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json
 
 Follow instructions below
 
-1. Set up your python environment (requires python 3) (mac instructions)
+1. All of the python code will run from Docker. *However* i you want to run the python locally, below are the instructions
 
 ```
 pip3 install kafka-python
@@ -34,7 +34,7 @@ pip3 install python-snappy
 2. Run the code to clean the data
 
 ```
-python3 covid19_datacleaner.py
+docker run --rm -ti   --network cassandra-kafka-elasticsearch-open-source_default   -v `pwd`:/usr/src/app   jfloff/alpine-python:3.7-slim     -A /usr/src/app/apk-requirements.txt     -B /usr/src/app/build-requirements.txt     -r /usr/src/app/requirements.txt     -- python3 /usr/src/app/covid19_datacleaner.py
 ```
 
 3. Validate that you have cleaned the data successfully
@@ -64,7 +64,7 @@ curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json
 #### Parse the VIX data and insert into a topic
 
 ```
-python3 vix_datacleaner.py
+docker run --rm -ti   --network cassandra-kafka-elasticsearch-open-source_default   -v `pwd`:/usr/src/app   jfloff/alpine-python:3.7-slim     -A /usr/src/app/apk-requirements.txt     -B /usr/src/app/build-requirements.txt     -r /usr/src/app/requirements.txt     -- python3 /usr/src/app/vix_datacleaner.py
 ```
 
 #### Validate the data matches what we expect

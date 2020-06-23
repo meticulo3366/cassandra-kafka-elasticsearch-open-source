@@ -1,0 +1,2 @@
+snappy
+snappy-dev 

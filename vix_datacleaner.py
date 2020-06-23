@@ -2,10 +2,12 @@ import json
 import datetime
 from kafka import KafkaConsumer
 from kafka import KafkaProducer
+#if you want to run outside of docker, simply change bootstrap_servers="localhost:29092"
+
 # Here we connect to the kafka cluster and grab just one record, all vix data is a giant data dump, we are converting into a stream
-consumer = KafkaConsumer('vix',max_poll_records=1,bootstrap_servers="localhost:29092", group_id=None, auto_offset_reset="earliest")
+consumer = KafkaConsumer('vix',max_poll_records=1,bootstrap_servers="kafka:9092", group_id=None, auto_offset_reset="earliest")
 # we will also be producing our records
-producer = KafkaProducer(bootstrap_servers="localhost:29092", key_serializer=str.encode,value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+producer = KafkaProducer(bootstrap_servers="kafka:9092", key_serializer=str.encode,value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 now = datetime.datetime.now()
 for message in consumer:
     vix = json.loads(message.value)
