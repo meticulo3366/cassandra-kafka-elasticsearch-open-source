@@ -10,7 +10,7 @@ We needed a data pipeline to demonstrate the functionality of cassandra / kafka 
 * Download the kafka connectors 
 * see [ReadMe](./README.md) if you are facing any challenges
 
-**Uncomment Lines 4 through 11 in Docker Compose**
+
 
 ## Open another terminal and Enable the connectors 
 ```
@@ -30,11 +30,12 @@ docker exec -it cassandra-kafka-elasticsearch-open-source_connect_1 bash -c   "k
 
 	`curl http://127.0.0.1:9200/current-datetime/_search/?size=1000&pretty=1`
 
-* validate
+* validate to ensure you have some json output
 
 *Check the console*
-`{"took":8,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":29,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-0","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:03Z","currentFileTime":132312998369757549}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-1","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:04Z","currentFileTime":132312998970689266}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-2","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:05Z","currentFileTime":132312999571657054}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-3","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:06Z","currentFileTime":132313000172654285}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-4","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:07Z","currentFileTime":132313000773434479}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-5","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:08Z","currentFileTime":132313001374382632}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-6","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:09Z","currentFileTime":132313001975291264}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-7","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:10Z","currentFileTime":132313002576201685}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-8","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:11Z","currentFileTime":132313003177159014}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-9","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:12Z","currentFileTime":132313003778899192}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-10","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:13Z","currentFileTime":132313004379766982}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-11","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:14Z","currentFileTime":132313004981127254}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-12","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:15Z","currentFileTime":132313005582092368}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-13","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:16Z","currentFileTime":132313006185439058}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-14","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:17Z","currentFileTime":132313006786489144}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-15","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:18Z","currentFileTime":132313007387657248}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-16","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:19Z","currentFileTime":132313007988489710}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-17","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:20Z","currentFileTime":132313008589424111}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-18","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:21Z","currentFileTime":132313009190359663}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-19","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:22Z","currentFileTime":132313009792017971}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-20","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:23Z","currentFileTime":132313010393116357}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-21","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:24Z","currentFileTime":132313010786904293}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-22","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:24Z","currentFileTime":132313010856907901}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-23","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:24Z","currentFileTime":132313010994111901}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-24","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:25Z","currentFileTime":132313011387885900}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-25","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:25Z","currentFileTime":132313011457896107}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-26","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:26Z","currentFileTime":132313012058690674}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-27","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:27Z","currentFileTime":132313012659520109}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-28","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:28Z","currentFileTime":132313013260366976}}]}}`
-#### Validate Cassandra has ingested the data
+`{"took":8,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":29,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-0","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:03Z","currentFileTime":132312998369757549}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-1","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:04Z","currentFileTime":132312998970689266}},{"_index":"current-datetime","_type":"current-datetime","_id":"current-datetime-0-2","_score":1.0,"_source":{"dayOfTheWeek":"Tuesday","currentDateTime":"2020-04-14T01:05Z","currentFileTime":132312999571657054}},{"_index":"current-datetime","_type":}]}}`
+
+#### open another terminal and Validate Cassandra has ingested the data
 * input
 ```
 docker exec -it cassandra-kafka-elasticsearch-open-source_cassandra_1 bash
@@ -145,7 +146,9 @@ EOF
       - connect
     ```
 
-# You may add some other conditionals that fits your stuation here
+## look at the cassandra boot script
+
+```
 until cqlsh -f /import.cql; do
   echo "cqlsh: Cassandra is unavailable to initialize - will retry later"
   sleep 2
@@ -154,6 +157,7 @@ done &
 exec /docker-entrypoint.sh "$@"
 ```
   * docker-compose program entry
+
 ```
   cassandra:
     image: cassandra:3.0.20
@@ -165,6 +169,7 @@ exec /docker-entrypoint.sh "$@"
     links:
       - connect
 ```
+
 ## Do some data exploration with kibana
 1. [Navigate to Kibana](http://localhost:5601/app/kibana#/management/kibana/index_pattern?_g=())
 

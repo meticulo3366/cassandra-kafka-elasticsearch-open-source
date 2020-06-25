@@ -1,15 +1,15 @@
 version: "2"
 services:
 
-  # cassandra:
-  #   image: cassandra:3.0.20
-  #   volumes:
-  #     - "./cassandra-init.sh:/cassandra-init.sh"
-  #   command: "sh /cassandra-init.sh"
-  #   ports:
-  #     - "9042:9042"
-  #   links:
-  #     - connect
+  cassandra:
+    image: cassandra:3.0.20
+    volumes:
+      - "./cassandra-init.sh:/cassandra-init.sh"
+    command: "sh /cassandra-init.sh"
+    ports:
+      - "9042:9042"
+    links:
+      - connect
 
   elasticsearch:
     hostname: elasticsearch
