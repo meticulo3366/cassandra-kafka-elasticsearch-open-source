@@ -47,7 +47,7 @@ curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json
 #### open another terminal and Validate elasticsearch has ingested the data
 
 ```
-curl http://127.0.0.1:9200/covid19us/_search/?size=1000&pretty=1
+curl http://127.0.0.1:9200/covid19/_search/?size=1000&pretty=1
 ```
 
 ## Market Volatility: Let's add some more data sources

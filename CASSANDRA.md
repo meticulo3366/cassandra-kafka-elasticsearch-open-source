@@ -40,6 +40,8 @@ docker exec -it cassandra-kafka-elasticsearch-open-source_connect_1 bash -c   "k
 ```
 docker exec -it cassandra-kafka-elasticsearch-open-source_cassandra_1 bash
 
+cqlsh
+
 select * from test.clock;
 ```
 * validate
