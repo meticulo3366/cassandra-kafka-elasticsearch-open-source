@@ -8,6 +8,16 @@ Our motivation was to empower you with creating big data workflows from beginnin
 * Install python3 on your workstation 
 * Install Docker on your workstation
 
+Note: if you are running Docker Desktop, allocate at least 3 GB for memory and 4 CPUs.
+![alt text](./docker_setting.jpg "Docker settings")
+
+1. Right click on Docker Desktop icon
+1. Select Preferences
+1. Select Resources
+1. Set CPUs = 4
+1. Set Memory to at least 3GB
+1. Press the Apply & Restart button to make the changes.
+
 ## Set up the environment
 
 * Set up and install Docker
