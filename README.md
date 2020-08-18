@@ -15,7 +15,7 @@ Note: if you are running Docker Desktop, allocate at least 3 GB for memory and 4
 1. Select Preferences
 1. Select Resources
 1. Set CPUs = 4
-1. Set Memory to at least 3GB
+1. Set Memory to at least 4GB
 1. Press the Apply & Restart button to make the changes.
 
 ## Set up the environment
