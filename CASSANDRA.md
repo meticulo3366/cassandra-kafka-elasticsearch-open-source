@@ -28,7 +28,7 @@ docker exec -it cassandra-kafka-elasticsearch-open-source_connect_1 bash -c   "k
 #### Validate elasticsearch has ingested the data
 * input
 
-	`curl http://127.0.0.1:9200/current-datetime/_search/?size=1000&pretty=1`
+	`curl 'http://127.0.0.1:9200/current-datetime/_search/?size=1000&pretty'`
 
 * validate to ensure you have some json output
 

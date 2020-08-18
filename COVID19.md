@@ -3,8 +3,18 @@
 ## Inspiration
 We needed a data pipeline to demonstrate the functionality of  kafka and elasticsearch and proper data science workflows
 
-## Pre-requisites
+## Prerequisites
 * Set up and install Docker
+
+Note: if you are running Docker Desktop, allocate at least 3 GB for memory and 4 CPUs.
+![alt text](./docker_setting.jpg "Docker settings")
+
+1. Right click on Docker Desktop icon
+1. Select Preferences
+1. Select Resources
+1. Set CPUs = 4
+1. Set Memory to at least 4GB
+1. Press the Apply & Restart button to make the changes.
 * Download the kafka connectors 
 * see [ReadMe](./README.md) if you are facing any challenges
 
@@ -47,7 +57,7 @@ curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json
 #### open another terminal and Validate elasticsearch has ingested the data
 
 ```
-curl http://127.0.0.1:9200/covid19/_search/?size=1000&pretty=1
+curl -X GET -H 'Content-Type: application/json' 'http://localhost:9200/covid19/_search?size=1000&pretty'
 ```
 
 ## Market Volatility: Let's add some more data sources

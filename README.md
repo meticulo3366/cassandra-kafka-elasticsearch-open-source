@@ -8,24 +8,22 @@ Our motivation was to empower you with creating big data workflows from beginnin
 * Install python3 on your workstation 
 * Install Docker on your workstation
 
+Note: if you are running Docker Desktop, allocate at least 3 GB for memory and 4 CPUs.
+![alt text](./docker_setting.jpg "Docker settings")
+
+1. Right click on Docker Desktop icon
+1. Select Preferences
+1. Select Resources
+1. Set CPUs = 4
+1. Set Memory to at least 4GB
+1. Press the Apply & Restart button to make the changes.
+
 ## Set up the environment
 
 * Set up and install Docker
 * Download the kafka connectors 
 
-  ```
-  mkdir jars
-  cd jars/
-  wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-rest-plugin-1.0.3-shaded.jar
-  wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-transform-add-headers-1.0.3-shaded.jar
-  wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-transform-from-json-plugin-1.0.3-shaded.jar
-  wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-transform-velocity-eval-1.0.3-shaded.jar
-  wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-elastic6-1.2.3-2.1.0-all.jar
-  wget https://cassandra-kafka-elasticsearch-open-source.s3-us-west-1.amazonaws.com/kafka-connect-cassandra-1.2.3-2.1.0-all.jar
-  cd ..
-  ```
 
-  or try curl if wget does not work
 
 ```
   mkdir jars
