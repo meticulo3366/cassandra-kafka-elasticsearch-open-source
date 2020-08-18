@@ -1,5 +1,5 @@
 {
-  "name": "source_rest_covid19",
+  "name": "source_rest_climate",
   "config": {
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "org.apache.kafka.connect.storage.StringConverter",
