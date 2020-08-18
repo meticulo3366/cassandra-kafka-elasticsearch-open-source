@@ -1,0 +1,13 @@
+{
+	"name": "covid19elk",
+	"config":{
+		"connector.class":"com.datamountaineer.streamreactor.connect.elastic6.ElasticSinkConnector",
+		"tasks.max":"1",
+		"topics":"climateclean",
+		"connect.elastic.url":"elasticsearch:9200",
+		"connect.elastic.use.http":"http",
+		"connect.elastic.kcql":"INSERT INTO climate SELECT * FROM climateclean WITHFORMAT JSON",
+		"connect.progress.enabled":"true"
+	}
+}
+

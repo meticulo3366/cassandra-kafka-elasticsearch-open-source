@@ -89,7 +89,10 @@ curl -X POST -H 'Accept: application/json'    -H 'Content-Type: application/json
 ## Do some data exploration with kibana
 1. [Navigate to Kibana](http://localhost:5601/app/kibana#/management/kibana/index_pattern?_g=())
 
-## setting up the python environment locally
+## Correlating Climate Data
+Open [Climate Data Parsing](./CLIMATE.md)
+
+## (OPTIONAL) setting up the python environment locally
 
 **if you want to run the python locally, below are the instructions otherwise skip to 2**
 
