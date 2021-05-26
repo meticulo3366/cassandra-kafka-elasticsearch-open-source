@@ -44,7 +44,7 @@ Note: if you are running Docker Desktop, allocate at least 3 GB for memory and 4
 ## Lab Exercises
 
 * Open [COVID 19 Lab](./COVID19.md) to run a local Covid19 Data science workbench
-![alt text](./covid19dataflow.jpg "Covid19 Data Flow Diagram")
+![alt text](./covid19dataflow.png "Covid19 Data Flow Diagram")
 
 * Open [Cassandra world Clock](./CASSANDRA.md)
 ![alt text](./diagram.jpg "World Clock Diagram")
